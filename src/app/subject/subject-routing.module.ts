@@ -25,8 +25,8 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'behavior',
-        pathMatch: 'full'
-      }
+        pathMatch: 'full',
+      },
     ],
   },
 ];
