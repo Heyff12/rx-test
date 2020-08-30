@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "rx-test"
+    }
+  },
+  "defaultProject": "rx-test",
+  "cli": {
+    "analytics": "1db51fbe-427e-4533-9a98-2a48faa48819"
+  }
 }
