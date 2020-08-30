@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReplaySubject, Observable } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-replay-subject',
@@ -27,11 +27,13 @@ export class ReplaySubjectComponent implements OnInit {
 
     subject.next(5);
 
-    this.setTime()
+    this.setTime();
   }
 
-  setTime() {
-    console.log('--------------------------除了缓冲数量，你还可以指定 window time (以毫秒为单位)来确定多久之前的值可以记录。----------------------------------')
+  setTime(): void {
+    console.log(
+      '--------------------------除了缓冲数量，你还可以指定 window time (以毫秒为单位)来确定多久之前的值可以记录。----------------------------------'
+    );
     const subject = new ReplaySubject(100, 500 /* windowTime */);
 
     const subject1 = subject.subscribe({
@@ -41,7 +43,7 @@ export class ReplaySubjectComponent implements OnInit {
     let i = 1;
     setInterval(() => subject.next(i++), 200);
 
-    let subject2:any
+    let subject2: any;
 
     setTimeout(() => {
       subject2 = subject.subscribe({
@@ -49,9 +51,9 @@ export class ReplaySubjectComponent implements OnInit {
       });
     }, 1000);
 
-    setTimeout(()=>{
-      subject1.unsubscribe()
-      subject2.unsubscribe()
-    },3000)
+    setTimeout(() => {
+      subject1.unsubscribe();
+      subject2.unsubscribe();
+    }, 3000);
   }
 }
