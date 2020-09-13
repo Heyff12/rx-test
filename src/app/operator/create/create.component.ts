@@ -11,6 +11,9 @@ import {
   empty,
   of,
   from,
+  bindCallback,
+  merge,
+  zip,
 } from 'rxjs';
 import { mergeMap, startWith, take } from 'rxjs/operators';
 
@@ -21,7 +24,6 @@ import { mergeMap, startWith, take } from 'rxjs/operators';
 })
 export class CreateComponent implements OnInit, OnDestroy {
   intervalObservable: any;
-  combineLatestObservable: any;
   constructor() {}
 
   ngOnInit(): void {
@@ -37,20 +39,19 @@ export class CreateComponent implements OnInit, OnDestroy {
     this.intervalObservable = numbers.subscribe((x) => console.log(x));
   }
 
-  combineLatestDemo(): void {
-    const firstTimer = timer(0, 1000); // 从现在开始，每隔1秒发出0, 1, 2...
-    const secondTimer = timer(500, 1000); // 0.5秒后，每隔1秒发出0, 1, 2...
-    const combinedTimers = combineLatest(firstTimer, secondTimer);
-    this.combineLatestObservable = combinedTimers.subscribe((value) =>
-      console.log(value)
-    );
-  }
+  bindCallbackDemo(): void {
+    let someFunction = (a, b, c) => {
+      console.log(a); // 5
+      console.log(b); // 'some string'
+      console.log(c); // {someProperty: 'someValue'}
+    };
 
-  concatDemo(): void {
-    const timerOne = interval(1000);
-    const sequence = range(1, 10);
-    const result = concat(timerOne, sequence);
-    result.subscribe((x) => console.log(x));
+    const boundSomeFunction = bindCallback(someFunction);
+    boundSomeFunction(5, 'some string', {
+      someProperty: 'someValue',
+    }).subscribe((values) => {
+      console.log(values); // [5, 'some string', {someProperty: 'someValue'}]
+    });
   }
 
   createDemo(): void {
@@ -67,12 +68,6 @@ export class CreateComponent implements OnInit, OnDestroy {
     );
   }
 
-  debounceDemo(): void {
-    const clicks = fromEvent(document, 'click');
-    // const result = clicks.debounce(() => interval(1000));
-    // result.subscribe((x) => console.log(x));
-  }
-
   deferDemo(): void {
     const clicksOrInterval = defer(() => {
       if (Math.random() > 0.5) {
@@ -84,6 +79,15 @@ export class CreateComponent implements OnInit, OnDestroy {
     clicksOrInterval.subscribe((x) => console.log(x));
   }
 
+  ofDemo(): void {
+    const numbers = of(10, 20, 30);
+    const letters = of('a', 'b', 'c');
+    const intervalO = interval(1000);
+    // const result = numbers.pipe(concat(letters), concat(intervalO));
+    const result = concat(numbers, letters, intervalO);
+    result.subscribe((x) => console.log(x));
+  }
+
   emptyDemo(): void {
     const intervalO = interval(1000);
     const result = intervalO.pipe(
@@ -92,6 +96,16 @@ export class CreateComponent implements OnInit, OnDestroy {
       )
     );
     result.subscribe((x) => console.log(x));
+  }
+
+  rangeDemo(): void {
+    const numbers = range(1, 10);
+    numbers.subscribe((x) => console.log(x));
+  }
+
+  timerDemo(): void {
+    const numbers = timer(3000, 1000);
+    numbers.subscribe((x) => console.log(x));
   }
 
   fromDemo(): void {
@@ -108,7 +122,6 @@ export class CreateComponent implements OnInit, OnDestroy {
     result.subscribe((x) => console.log(x));
   }
   ngOnDestroy(): void {
-    this.intervalObservable.unsubscribe();
-    this.combineLatestObservable.unsubscribe();
+    this.intervalObservable && this.intervalObservable.unsubscribe();
   }
 }
