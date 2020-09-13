@@ -3,3 +3,22 @@
   中。 你可以传递一个输入 Observable 数组，或者直接把它们当做参数传递。
   传递一个空数组会 导致输出 Observable 立马触发完成状态。
 </p>
+
+<p>
+  defer允许你创建一个 Observable 当且仅当它被订阅的时候，并且为每个订阅者创建新的 Observable。
+</p>
+
+<p>
+  empty 创建一个什么数据都不发出并且立马完成的 Observable。
+</p>
+
+<p>from 从一个数组、类数组对象、Promise、迭代器对象或者类 Observable 对象创建一个 Observable.<p>
+
+    <span class="btn" (click)="createDemo()">create</span>
+    <span class="btn" (click)="deferDemo()">defer</span>
+    <span class="btn" (click)="emptyDemo()">empty</span>
+    <span class="btn" (click)="fromDemo()">from</span>
+    <span class="btn" (click)="intervalDemo()">interval</span>
+    <span class="btn" (click)="combineLatestDemo()">combineLatest</span>
+    <span class="btn" (click)="concatDemo()">concat</span>
+    <span class="btn" (click)="debounceDemo()">debounce</span>

@@ -7,8 +7,12 @@ import {
   concat,
   Observable,
   fromEvent,
+  defer,
+  empty,
+  of,
+  from,
 } from 'rxjs';
-import {} from 'rxjs/operators';
+import { mergeMap, startWith, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create',
@@ -24,7 +28,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     // this.intervalDemo()
     // this.combineLatest();
     // this.concatDemo();
-    this.createDemo();
+    // this.createDemo();
     // this.debounceDemo();
   }
 
@@ -33,7 +37,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     this.intervalObservable = numbers.subscribe((x) => console.log(x));
   }
 
-  combineLatest(): void {
+  combineLatestDemo(): void {
     const firstTimer = timer(0, 1000); // 从现在开始，每隔1秒发出0, 1, 2...
     const secondTimer = timer(500, 1000); // 0.5秒后，每隔1秒发出0, 1, 2...
     const combinedTimers = combineLatest(firstTimer, secondTimer);
@@ -65,10 +69,44 @@ export class CreateComponent implements OnInit, OnDestroy {
 
   debounceDemo(): void {
     const clicks = fromEvent(document, 'click');
-    const result = clicks.debounce(() => interval(1000));
+    // const result = clicks.debounce(() => interval(1000));
+    // result.subscribe((x) => console.log(x));
+  }
+
+  deferDemo(): void {
+    const clicksOrInterval = defer(() => {
+      if (Math.random() > 0.5) {
+        return fromEvent(document, 'click');
+      } else {
+        return interval(1000);
+      }
+    });
+    clicksOrInterval.subscribe((x) => console.log(x));
+  }
+
+  emptyDemo(): void {
+    const intervalO = interval(1000);
+    const result = intervalO.pipe(
+      mergeMap((x) =>
+        x % 2 === 1 ? of('a', 'b', 'c') : empty().pipe(startWith(7))
+      )
+    );
     result.subscribe((x) => console.log(x));
   }
 
+  fromDemo(): void {
+    function* generateDoubles(seed) {
+      let i = seed;
+      while (true) {
+        yield i;
+        i = 2 * i; // double it
+      }
+    }
+
+    const iterator = generateDoubles(3);
+    const result = from(iterator).pipe(take(10));
+    result.subscribe((x) => console.log(x));
+  }
   ngOnDestroy(): void {
     this.intervalObservable.unsubscribe();
     this.combineLatestObservable.unsubscribe();
