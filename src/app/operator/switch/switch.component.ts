@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { fromEvent, interval } from 'rxjs';
-import { buffer, bufferCount, bufferWhen } from 'rxjs/operators';
+import { buffer, bufferCount, bufferWhen, mapTo } from 'rxjs/operators';
 
 @Component({
   selector: 'app-switch',
@@ -29,5 +29,11 @@ export class SwitchComponent implements OnInit {
       bufferWhen(() => interval(1000 + Math.random() * 4000))
     );
     buffered.subscribe((x) => console.log(x));
+  }
+
+  mapToDemo(): void {
+    const clicks = fromEvent(document, 'click');
+    const greetings = clicks.pipe(mapTo('Hi'));
+    greetings.subscribe((x) => console.log(x));
   }
 }

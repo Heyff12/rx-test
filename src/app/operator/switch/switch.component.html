@@ -1,8 +1,10 @@
 <p>buffer 缓冲源 Observable 的值直到 closingNotifier 发出。</p>
 <p>bufferCount 缓冲源 Observable 的值直到缓冲数量到达设定的 bufferSize.</p>
 <p>bufferWhen 缓冲源 Observable 的值, 使用关闭 Observable 的工厂函数来决定何时关闭、发出和重置缓冲区。</p>
+<p> mapTo 每次源 Observble 发出值时，都在输出 Observable 上发出给定的常量值。</p>
 
 
 <span class="btn" (click)="bufferDemo()">buffer</span>
 <span class="btn" (click)="bufferCountDemo()">bufferCount</span>
 <span class="btn" (click)="bufferWhenDemo()">bufferWhen</span>
+<span class="btn" (click)="mapToDemo()">mapTo</span>

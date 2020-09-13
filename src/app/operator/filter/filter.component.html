@@ -1,2 +1,26 @@
-<p>filter works!</p>
+<p>debounce 只有在另一个 Observable 决定的一段特定时间经过后并且没有发出另一个源值之后，才从源 Observable 中发出一个值。</p>
+<p>debounceTime 只有在特定的一段时间经过后并且没有发出另一个源值，才从源 Observable 中发出一个值。</p>
+<p>distinct 返回 Observable，它发出由源 Observable 所发出的所有与之前的项都不相同的项。</p>
+<p>distinctUntilChanged 返回 Observable，它发出源 Observable 发出的所有与前一项不相同的项。
+
+  如果提供了 compare 函数，那么每一项都会调用它来检验是否应该发出这个值。
+
+  如果没有提供 compare 函数，默认使用相等检查。</p>
+
+<p>distinctUntilKeyChanged 返回 Observable，它发出源 Observable 发出的所有与前一项不相同的项，使用通过提供的 key 访问到的属性来检查两个项是否不同。
+
+  如果提供了 compare 函数，那么每一项都会调用它来检验是否应该发出这个值。
+
+  如果没有提供 compare 函数，默认使用相等检查。</p>
+<p>elementAt 只发出单个值，这个值位于源 Observable 的发送序列中的指定 index 处。</p>
+<p>every 返回的 Observable 发出是否源 Observable 的每项都满足指定的条件。</p>
+<p>groupBy 根据指定条件将源 Observable 发出的值进行分组，并将这些分组作为 GroupedObservables 发出，每一个分组都是一个 GroupedObservable 。</p>
+
 <span class="btn" (click)="debounceDemo()">debounce</span>
+<span class="btn" (click)="debounceTimeDemo()">debounceTime</span>
+<span class="btn" (click)="distinctDemo()">distinct</span>
+<span class="btn" (click)="distinctUntilChangedDemo()">distinctUntilChanged</span>
+<span class="btn" (click)="distinctUntilKeyChangedDemo()">distinctUntilKeyChanged</span>
+<span class="btn" (click)="elementAtDemo()">elementAt</span>
+<span class="btn" (click)="everyDemo()">every</span>
+<span class="btn" (click)="groupByDemo()">groupBy</span>

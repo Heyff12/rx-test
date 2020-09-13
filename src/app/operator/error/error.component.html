@@ -1,4 +1,7 @@
 <p>catch 捕获 observable 中的错误，可以通过返回一个新的 observable 或者抛出错误对象来处理。</p>
+<p>retry 返回一个 Observable， 该 Observable 是源 Observable 不包含错误异常的镜像。 如果源 Observable 发生错误, 这个方法不会传播错误而是会不 断的重新订阅源 Observable
+  直到达到最大重试次数 (由数字参数指定)。</p>
 
 <span class="btn" (click)="catchDemo()">catch</span>
 <span class="btn" (click)="catchRetryDemo()">catch 重试</span>
+<span class="btn" (click)="retryDemo()">retry</span>

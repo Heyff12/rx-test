@@ -38,4 +38,18 @@ export class ErrorComponent implements OnInit {
       )
       .subscribe((x) => console.log(x));
   }
+
+  retryDemo(): void {
+    of(1, 2, 3, 4, 5)
+      .pipe(
+        map((n) => {
+          if (n === 4) {
+            throw 'four!';
+          }
+          return n;
+        }),
+        retry(3)
+      )
+      .subscribe((x) => console.log(x));
+  }
 }
