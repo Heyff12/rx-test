@@ -29,7 +29,7 @@ export class BooleanComponent implements OnInit {
   defaultIfEmptyDemo(): void {
     const clicks = fromEvent(document, 'click');
     const clicksBeforeFive = clicks.pipe(takeUntil(interval(5000)));
-    const result = clicksBeforeFive.pipe(defaultIfEmpty('no clicks'));
+    // const result = clicksBeforeFive.pipe(defaultIfEmpty('no clicks'));
     clicksBeforeFive.subscribe((x) => console.log(x));
   }
 }

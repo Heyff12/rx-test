@@ -47,9 +47,10 @@ export class CreateComponent implements OnInit, OnDestroy {
     };
 
     const boundSomeFunction = bindCallback(someFunction);
-    boundSomeFunction(5, 'some string', {
-      someProperty: 'someValue',
-    }).subscribe((values) => {
+    // {
+    //   someProperty: 'someValue',
+    // }
+    boundSomeFunction(5, 'some string').subscribe((values) => {
       console.log(values); // [5, 'some string', {someProperty: 'someValue'}]
     });
   }

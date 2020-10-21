@@ -119,8 +119,8 @@ export class FilterComponent implements OnInit {
       { id: 4, name: 'qsgqsfg2' }
     )
       .pipe(
-        groupBy((p) => p.id),
-        flatMap((group$) => group$.reduce((acc, cur) => [...acc, cur], []))
+        groupBy((p) => p.id)
+        // flatMap((group$) => group$.reduce((acc, cur) => [...acc, cur], []))
       )
       .subscribe((p) => console.log(p));
   }
